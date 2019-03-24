@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        div{
+            margin:50px auto;
+            width:600px;
+            height:420px;
+            position:relative;
+        }
+        ul{
+            width:600px;
+            height:420px;
+            position:absolute;
+        }
+        li{
+            float:left;
+            width:58px;
+            height:58px;
+            border:1px solid rgba(0,0,0,0);
+            list-style:none;
+            background: yellow;
+        }
+        input{
+            position:absolute;
+            top:100px;
+            z-index: 10;
+        }
+        input:nth-of-type(1){
+            left:-100px;
+        }
+        input:nth-of-type(2){
+            right:-100px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementsByTagName("div")[0];
+            var oUl=oDiv.getElementsByTagName("ul");
+            var oInput=oDiv.getElementsByTagName("input");
+            function fn(){
+                var arr=[];
+                for(var i=0;i<oUl.length;i++){
+                    var iRows=oUl[i].offsetHeight/oUl[i].children[0].offsetHeight;
+                    var iCeils=oUl[i].children.length/iRows;
+                    var arr1=[];
+                    oUl[i].index=i+1;
+                    oUl[i].onclick=function(){
+                        alert(this.index);
+                    }
+                    oUl[i].style.zIndex=oUl.length-i;
+                    for(var j=0;j<iRows;j++){
+                        var arr2=[];
+                        for(var k=0;k<iCeils;k++){
+                            oUl[i].children[j*iCeils+k].style.background="url(image/"+(i+1)+".jpg)";
+                            oUl[i].children[j*iCeils+k].style.backgroundPosition=-60*k+"px "+-60*j+"px";
+                            oUl[i].children[j*iCeils+k].indexX=j;
+                            oUl[i].children[j*iCeils+k].indexY=k;
+                            arr2.push(oUl[i].children[j*iCeils+k]);
+                        }
+                        arr1.push(arr2);
+                    }
+                    arr.push(arr1);
+                }
+                return arr;
+            }
+            var arr=fn();
+
+            function fn1(n,y,x,fnn,speedY,speedX){
+                if(!arr[n][y]||!arr[n][y][x]){
+                    return;
+                }
+                if(fnn){
+                    fnn.call(arr[n][y][x]);
+                    clearTimeout(arr[n][y][x].timer);
+                    arr[n][y][x].timer=setTimeout(function(){
+                        fn1(n,y,x+speedX,fnn,speedY,speedX);
+                        fn1(n,y+speedY,x,fnn,speedY,speedX);
+                    },50)
+                }
+
+
+
+            }
+            var iNow=0;
+            oInput[1].onclick=function(){
+                if(iNow>=4){
+                    return;
+                }
+                fn1(iNow,6,9,function(){
+                    with(this.style){
+                        transition="2s";
+                        boxShadow="0 0 6px 5px blue";
+                        transform="translate(-100px,-100px) rotateX(720deg) rotateY(360deg)";
+
+                        opacity=0;
+                }
+
+                    if(this.indexX==0&&this.indexY==0){
+                        this.addEventListener("webkitTransitionEnd",end,false);
+                    }
+                },-1,-1);
+                iNow++;
+            }
+            oInput[0].onclick=function(){
+                if(iNow<=0){
+                    return;
+                }
+                iNow--;
+                fn1(iNow,0,0,function(){
+                    with(this.style){
+                        transition="2s";
+                        transform="translate(0px,0px) rotateX(0deg) rotateY(0deg)";
+                        boxShadow="0 0 0 0 rgba(0,0,0,0)";
+                        opacity=1;
+
+                    }
+                    this.parentNode.style.visibility="visible";
+                    this.removeEventListener("webkitTransitionEnd",end,false);
+                },1,1);
+            }
+            function end(e){
+                console.log(e.propertyName);
+                if(e.propertyName=="transform"){
+                    this.parentNode.style.visibility="hidden";
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" value="上一张">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <input type="button" value="下一张">
+</div>
+</body>
+</html>
