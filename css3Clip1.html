@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{padding:0;margin:0;}
+        ul{width:600px;height:420px;margin:150px auto;}
+        li{perspective:1200px;list-style: none;float:left;width:58px;height:58px;border:1px solid rgba(0,0,0,0);background: yellow;background: url("image/1.jpg")no-repeat;background-origin:border-box;}
+
+    </style>
+    <script>
+        window.onload=function(){
+            var oStyle=document.getElementsByTagName("style")[0];
+            var oUl=document.getElementsByTagName("ul")[0];
+            var oLi=oUl.getElementsByTagName("li");
+            var oInput=document.getElementsByTagName("input");
+            var iRows=oUl.offsetHeight/oLi[0].offsetHeight;
+            var iCeils=oLi.length/iRows;
+            var arr=fn(oLi,iRows,iCeils);
+            (function(i){
+                var oLiLength=oLi.length;
+                for(;i<oLiLength;i++){
+                    oLi[i].onclick=function(){
+                        fn1(arr,this.indexY,this.indexX);
+                    }
+                }
+            })(0)
+            oInput[0].onclick=function(){
+                fn1(arr,iRows-1,iCeils-1,-1,-1,"blue");
+            }
+            oInput[1].onclick=function(){
+                fn1(arr,0,0,1,1,"yellow");
+            }
+            oInput[2].onclick=function(){
+                fn2(oLi,iRows,iCeils,-100,-100,0,"red",1.5);
+            }
+            oInput[3].onclick=function(){
+                fn2(oLi,iRows,iCeils,0,0,100,"rgba(0,0,0,0)",1);
+            }
+            function fn1(arr,y,x,ySpeed,xSpeed,color){
+                if(!arr[y]||!arr[y][x]){
+                    return;
+                }
+                arr[y][x].style.background=color;
+                clearTimeout(arr[y][x].timer);
+                arr[y][x].timer=setTimeout(function(){
+                    fn1(arr,y,x+ySpeed,ySpeed,xSpeed,color);
+                    fn1(arr,y+xSpeed,x,ySpeed,xSpeed,color);},50)
+
+            }
+        }
+        function fn(obj,row,ceil){
+            var arr=[];
+            for(var i=0;i<row;i++){
+                var arr1=[];
+                for(var j=0;j<ceil;j++){
+                    obj[i*ceil+j].indexX=j;
+                    obj[i*ceil+j].indexY=i;
+                    arr1.push(obj[i*ceil+j]);
+                    obj[i*ceil+j].style.backgroundPosition=-60*j+"px "+-60*i+"px";
+
+                }
+                arr.push(arr1);
+            }
+            return arr;
+        }
+        var n=0;
+        function fn2(obj,row,ceil,x,y,opacity,color,sca){
+            n++;
+            var arr=[];
+            for(var i=0;i<row;i++){
+                var arr1=[];
+                for(var j=0;j<ceil;j++){
+                    obj[i*ceil+j].indexX=j;
+                    obj[i*ceil+j].indexY=i;
+                    arr1.push(obj[i*ceil+j]);
+                    obj[i*ceil+j].style.transform="translateX("+x+"px) translateY("+y+"px) rotateX("+360*n/**(i*ceil+j+1)*/+"deg ) rotateY("+360*n/**(i*ceil+j+1)*/+"deg ) scale("+sca+")";
+                    obj[i*ceil+j].style.transition="2s "+(i*ceil+j)*0.01+"s";
+                    obj[i*ceil+j].style.opacity=opacity;
+                    obj[i*ceil+j].style.boxShadow="0 0 80px 20px "+color+"";
+                }
+                arr.push(arr1);
+            }
+            return arr;
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="展开">
+<input type="button" value="收起">
+<input type="button" value="旋转1">
+<input type="button" value="旋转2">
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+</html>
